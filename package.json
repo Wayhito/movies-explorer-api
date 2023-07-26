@@ -1,0 +1,45 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "Бэкенд диплома",
+  "main": "app.js",
+  "scripts": {
+    "lint": "npx eslint .",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "dev:inspect": "nodemon --inspect app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wayhito/movies-explorer-api.git"
+  },
+  "author": "Ilya Gladkikh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wayhito/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/Wayhito/movies-explorer-api#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "celebrate": "^15.0.1",
+    "dotenv": "^16.3.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.8.0",
+    "express-winston": "^4.2.0",
+    "helmet": "^7.0.0",
+    "jsonwebtoken": "^9.0.1",
+    "mongoose": "^7.4.1",
+    "nodemon": "^3.0.1",
+    "validator": "^13.9.0",
+    "winston": "^3.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0"
+  }
+}
