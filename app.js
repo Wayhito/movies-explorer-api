@@ -17,6 +17,8 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
+// Подключения
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 минут
   max: 100, // 100 запросов с одного IP
@@ -31,11 +33,13 @@ mongoose.connect(URL)
     console.error(err);
   });
 
-app.use(limiter);
-
 // Логгер запросов
 app.use(requestLogger);
 
+// Лимитер
+app.use(limiter);
+
+// Cors - Helmet
 app.use(cors);
 app.use(helmet());
 
@@ -45,6 +49,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
+// Роуты
 app.use(routes);
 
 // Ошибки

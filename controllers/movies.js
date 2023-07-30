@@ -22,7 +22,7 @@ async function createMovie(req, res, next) {
 
     const ownerId = req.user._id;
 
-    const card = await Movie.create({
+    const movie = await Movie.create({
       country,
       director,
       duration,
@@ -37,7 +37,7 @@ async function createMovie(req, res, next) {
       owner: ownerId,
     });
 
-    res.status(201).send(card);
+    res.status(201).send(movie);
   } catch (err) {
     if (err.name === 'ValidationError') {
       next(new ValidationError('Неверные данные в запросе'));
@@ -48,9 +48,16 @@ async function createMovie(req, res, next) {
   }
 }
 
-async function receiveMovies(_, res, next) {
+async function receiveMovies(req, res, next) {
+  const owner = req.user._id;
+
   try {
-    const movies = await Movie.find({});
+    const movies = await Movie.find({ owner });
+
+    if (!movies || movies.length === 0) {
+      res.send('Фильмы не найдены');
+    }
+
     res.send(movies);
   } catch (err) {
     next(err);

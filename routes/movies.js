@@ -17,10 +17,10 @@ const paramsValidationConfig = {
 
 const movies = express.Router();
 
-movies.get('/movies', receiveMovies);
+movies.get('/', receiveMovies);
 
 movies.post(
-  '/movies',
+  '/',
   celebrate({
     body: Joi.object().keys({
       country: Joi.string().required(),
@@ -40,6 +40,6 @@ movies.post(
   createMovie,
 );
 
-movies.delete('/movies/_id ', celebrate(paramsValidationConfig), deleteMovie);
+movies.delete('/:movieId', celebrate(paramsValidationConfig), deleteMovie);
 
 module.exports = { movies };

@@ -7,7 +7,7 @@ const { getCurrentUserInfo, getUserInfo, setUserInfo } = require('../controllers
 
 const users = express.Router();
 
-users.get('users/me', getCurrentUserInfo);
+users.get('/me', getCurrentUserInfo);
 
 // users.get('/', getUsersInfo);
 
@@ -22,7 +22,7 @@ users.get(
 );
 
 users.patch(
-  '/users/me',
+  '/me',
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().email().required(),

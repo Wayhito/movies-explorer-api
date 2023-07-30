@@ -3,12 +3,12 @@ const jwt = require('jsonwebtoken');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
+const User = require('../models/user');
+
 const ValidationError = require('../errors/Validation');
 const ConflictError = require('../errors/ConflictError');
 const UnauthorizedError = require('../errors/Unauthorized');
 const NotFoundError = require('../errors/NotFound');
-
-const User = require('../models/user');
 
 async function registerUser(req, res, next) {
   try {
