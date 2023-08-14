@@ -10,7 +10,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { routes } = require('./routes');
 const { handleError } = require('./middlewares/handleError');
-const { cors } = require('./middlewares/cors');
+const cors = require('cors');
 
 const URL = 'mongodb://127.0.0.1:27017/bitfilmsdb';
 const { PORT = 3000 } = process.env;
@@ -40,7 +40,9 @@ app.use(requestLogger);
 app.use(limiter);
 
 // Cors - Helmet
-app.use(cors);
+app.use(cors({
+  origin: '*',
+}));
 app.use(helmet());
 
 app.get('/crash-test', () => {
