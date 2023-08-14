@@ -20,7 +20,9 @@ const app = express();
 // Подключения
 
 // CORS
-app.use(cors());
+app.use(cors({
+  origin: '*',
+}));
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 минут
