@@ -19,6 +19,9 @@ const app = express();
 
 // Подключения
 
+// CORS
+app.use(cors());
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 минут
   max: 100, // 100 запросов с одного IP
@@ -39,8 +42,7 @@ app.use(requestLogger);
 // Лимитер
 app.use(limiter);
 
-// Cors - Helmet
-app.use(cors());
+// Helmet
 app.use(helmet());
 
 app.get('/crash-test', () => {
