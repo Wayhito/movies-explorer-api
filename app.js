@@ -8,6 +8,8 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 
 const cors = require('cors');
+const allowedCors = require('./utils/cors');
+
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { routes } = require('./routes');
@@ -25,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // CORS
 app.use(cors({
-  origin: '*',
+  origin: allowedCors,
 }));
 
 const limiter = rateLimit({
