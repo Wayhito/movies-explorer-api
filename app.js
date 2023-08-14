@@ -40,9 +40,7 @@ app.use(requestLogger);
 app.use(limiter);
 
 // Cors - Helmet
-app.use(cors({
-  origin: '*',
-}));
+app.use(cors());
 app.use(helmet());
 
 app.get('/crash-test', () => {
