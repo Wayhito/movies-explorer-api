@@ -64,7 +64,7 @@ async function loginUser(req, res, next) {
       },
     );
 
-    res.send({ jwt: token });
+    res.send({ token });
   } catch (err) {
     next(err);
   }
