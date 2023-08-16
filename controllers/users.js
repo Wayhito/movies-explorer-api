@@ -94,7 +94,7 @@ async function loginUser(req, res, next) {
 }
 
 const getCurrentUserInfo = (req, res, next) => {
-  const userId = req.user._id;
+  const userId = req.body._id;
 
   User.findById(userId)
     .then((user) => {
