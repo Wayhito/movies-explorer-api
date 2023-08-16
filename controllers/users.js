@@ -97,10 +97,12 @@ const getCurrentUserInfo = (req, res, next) => {
   const userId = req.user._id;
 
   User.findById(userId)
-    .orFail(() => {
-      throw new NotFoundError('Пользователь не найден');
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError('Пользователь не найден');
+      }
+      res.send(user);
     })
-    .then((user) => res.send(user))
     .catch(next);
 };
 
