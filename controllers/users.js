@@ -94,15 +94,20 @@ async function loginUser(req, res, next) {
 }
 
 const getCurrentUserInfo = (req, res, next) => {
-  const userId = req.params;
-  User.findById(userId)
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Пользователь не найден');
-      }
-      res.send(user);
-    })
-    .catch(next);
+  try {
+    const userId = req.user._id;
+    res.send(userId);
+  } catch (err) {
+    next(err);
+  }
+  // User.findById(userId)
+  //   .then((user) => {
+  //     if (!user) {
+  //       throw new NotFoundError('Пользователь не найден');
+  //     }
+  //     res.send(user);
+  //   })
+  //   .catch(next);
 };
 
 // async function getCurrentUserInfo(req, res, next) {
