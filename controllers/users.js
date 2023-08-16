@@ -93,20 +93,31 @@ async function loginUser(req, res, next) {
   }
 }
 
-async function getCurrentUserInfo(req, res, next) {
-  try {
-    const userId = req.user._id;
-    const user = await User.findById(userId);
+const getCurrentUserInfo = (req, res, next) => {
+  const userId = req.user._id;
 
-    if (!user) {
+  User.findById(userId)
+    .orFail(() => {
       throw new NotFoundError('Пользователь не найден');
-    }
+    })
+    .then((user) => res.send(user))
+    .catch(next);
+};
 
-    res.send(user);
-  } catch (err) {
-    next(err);
-  }
-}
+// async function getCurrentUserInfo(req, res, next) {
+//   try {
+//     const userId = req.user._id;
+//     const user = await User.findById(userId);
+
+//     if (!user) {
+//       throw new NotFoundError('Пользователь не найден');
+//     }
+
+//     res.send(user);
+//   } catch (err) {
+//     next(err);
+//   }
+// }
 
 async function setUserInfo(req, res, next) {
   try {
