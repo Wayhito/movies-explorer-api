@@ -5,15 +5,12 @@ const { getCurrentUserInfo, setUserInfo } = require('../controllers/users');
 
 const users = express.Router();
 
-users.get(
-  '/me',
-  celebrate({
-    params: Joi.object().keys({
-      userId: Joi.length(24).hex(),
-    }),
-  }),
-  getCurrentUserInfo,
-);
+users.get('/me', getCurrentUserInfo);
+// celebrate({
+//   params: Joi.object().keys({
+//     userId: Joi.length(24).hex(),
+//   }),
+// }),
 
 users.patch(
   '/me',
