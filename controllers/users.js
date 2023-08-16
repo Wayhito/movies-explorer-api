@@ -95,7 +95,7 @@ async function loginUser(req, res, next) {
 
 const getCurrentUserInfo = (req, res, next) => {
   try {
-    const userId = req.params.user._id;
+    const userId = req.body;
     res.send(userId);
   } catch (err) {
     next(err);
