@@ -94,9 +94,9 @@ async function loginUser(req, res, next) {
 }
 
 const getCurrentUserInfo = (req, res, next) => {
-  const id = req.params.userId;
+  const userId = req.user._id;
 
-  User.findById(id)
+  User.findById(userId)
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Пользователь не найден');
