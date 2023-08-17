@@ -45,8 +45,9 @@ async function registerUser(req, res, next) {
     });
 
     user = user.toObject();
+    const userId = user._id;
     delete user.password;
-    res.status(201).send(user);
+    res.status(201).send(user, userId);
   } catch (err) {
     if (err.name === 'ValidationError') {
       next(new ValidationError('Неверные данные в  запросе'));
