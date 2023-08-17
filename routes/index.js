@@ -34,8 +34,10 @@ routes.post(
   loginUser,
 );
 
-routes.use('/users', auth, users);
-routes.use('/movies', auth, movies);
+routes.use(auth);
+
+routes.use('/users', users);
+routes.use('/movies', movies);
 
 routes.all('*', (req, res, next) => {
   next(new NotFoundError('Неверный адрес запроса'));
