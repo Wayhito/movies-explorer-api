@@ -35,6 +35,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // CORS
 app.use(cors());
 
+const corsFunc = (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+};
+
+app.use(corsFunc);
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 минут
   max: 100, // 100 запросов с одного IP
