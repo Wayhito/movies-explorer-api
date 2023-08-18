@@ -6,19 +6,24 @@ const { errors } = require('celebrate');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 
-const cors = require('./middlewares/cors');
-
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { routes } = require('./routes');
 const { handleError } = require('./middlewares/handleError');
+const { cors } = require('./middlewares/cors');
 
 const URL = 'mongodb://127.0.0.1:27017/bitfilmsdb';
 const { PORT = 3000 } = process.env;
 
 const app = express();
 
-/// Подключения
+// Подключения
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 минут
+  max: 100, // 100 запросов с одного IP
+});
+
 mongoose.connect(URL)
   .then(() => {
     console.log(`Connected to database on ${URL}`);
@@ -28,21 +33,14 @@ mongoose.connect(URL)
     console.error(err);
   });
 
-// CORS
-app.use(cors());
-
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 минут
-  max: 100, // 100 запросов с одного IP
-});
-
 // Логгер запросов
 app.use(requestLogger);
 
 // Лимитер
 app.use(limiter);
 
-// Helmet
+// Cors - Helmet
+app.use(cors);
 app.use(helmet());
 
 app.get('/crash-test', () => {
