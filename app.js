@@ -20,6 +20,14 @@ const { PORT = 3000 } = process.env;
 const app = express();
 
 // Подключения
+mongoose.connect(URL)
+  .then(() => {
+    console.log(`Connected to database on ${URL}`);
+  })
+  .catch((err) => {
+    console.log('Error on database connection');
+    console.error(err);
+  });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -54,15 +62,6 @@ app.use(routes);
 app.use(errorLogger);
 app.use(errors());
 app.use(handleError);
-
-mongoose.connect(URL)
-  .then(() => {
-    console.log(`Connected to database on ${URL}`);
-  })
-  .catch((err) => {
-    console.log('Error on database connection');
-    console.error(err);
-  });
 
 app.listen(PORT, () => {
   console.log(`App started on port ${PORT}`);
