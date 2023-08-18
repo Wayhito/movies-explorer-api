@@ -49,19 +49,14 @@ async function createMovie(req, res, next) {
 }
 
 async function receiveMovies(req, res, next) {
-  const owner = req.user._id;
-
-  try {
-    const movies = await Movie.find({ owner });
-
-    if (!movies || movies.length === 0) {
-      res.send('Фильмы не найдены');
-    }
-
-    res.send(movies);
-  } catch (err) {
-    next(err);
-  }
+  Movie.find({ owner: req.user._id })
+    .then((movies) => {
+      if (!movies) {
+        throw new NotFoundError('Данные не найдены!');
+      }
+      res.send(movies);
+    })
+    .catch(next);
 }
 
 async function deleteMovie(req, res, next) {
