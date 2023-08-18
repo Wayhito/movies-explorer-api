@@ -25,23 +25,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // CORS
-app.use(cors({
-  origin: '*',
-}));
+app.use(cors());
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 минут
   max: 100, // 100 запросов с одного IP
 });
-
-mongoose.connect(URL)
-  .then(() => {
-    console.log(`Connected to database on ${URL}`);
-  })
-  .catch((err) => {
-    console.log('Error on database connection');
-    console.error(err);
-  });
 
 // Логгер запросов
 app.use(requestLogger);
@@ -65,6 +54,15 @@ app.use(routes);
 app.use(errorLogger);
 app.use(errors());
 app.use(handleError);
+
+mongoose.connect(URL)
+  .then(() => {
+    console.log(`Connected to database on ${URL}`);
+  })
+  .catch((err) => {
+    console.log('Error on database connection');
+    console.error(err);
+  });
 
 app.listen(PORT, () => {
   console.log(`App started on port ${PORT}`);
