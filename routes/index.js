@@ -35,12 +35,8 @@ routes.post(
 );
 
 routes.use(auth);
-
 routes.use('/users', users);
 routes.use('/movies', movies);
-
-routes.use(auth, users);
-routes.use(auth, movies);
 
 routes.all('*', (req, res, next) => {
   next(new NotFoundError('Неверный адрес запроса'));
