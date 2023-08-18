@@ -19,7 +19,7 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-// Подключения
+/// Подключения
 mongoose.connect(URL)
   .then(() => {
     console.log(`Connected to database on ${URL}`);
