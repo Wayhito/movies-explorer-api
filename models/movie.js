@@ -60,6 +60,11 @@ const movieSchema = new Schema(
       required: true,
     },
 
+    movieId: {
+      type: String,
+      required: true,
+    },
+
     nameRU: {
       type: String,
       required: true,
